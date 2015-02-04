@@ -4,11 +4,13 @@
  * @link edloidas@gmail.com
  */
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans&subset=latin,cyrillic);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,400&subset=latin,cyrillic);
 @import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
 
 @bg-main: #333;
 @bg-standby: @bg-main radial-gradient( #996633, #000 );
+
+@shadow: black; // #000000
 
 @font-color-main: whiteSmoke; // #F5F5F5
 @font-color-bkp: #111;
@@ -16,15 +18,19 @@
 @font-family-main: "Open Sans", Tahoma, Geneva, sans-serif;
 @font-size: 24pt;
 
-@street-img-width: 1920px;
-@street-img-height: 1200px;
+@container-width: 1920px;
+@container-height: 1200px;
+
+@street-img-width: 2016px;  // @container-width * 1.05
+@street-img-height: 1260px; // @container-height * 1.05
 
 @couple-img-width: 600px;
 @couple-img-height: 900px;
 
 @z-index-street: 1;
 @z-index-couple: @z-index-street + 1;
-@z-index-play: @z-index-couple + 1;
+@z-index-congrat: @z-index-couple + 1;
+@z-index-play: @z-index-congrat + 1;
 @z-index-standby: @z-index-play + 1;
 
 .noselect() {
@@ -137,9 +143,11 @@ body {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: @street-img-width;
-    height: @street-img-height;
-    margin: -@street-img-height/2 0 0 -@street-img-width/2;
+    width: @container-width;
+    height: @container-height;
+    margin: -@container-height/2 0 0 -@container-width/2;
+    box-shadow: 0 0 30px @shadow, 0 0 10px @shadow;
+    overflow: hidden;
 }
 
 #street {
@@ -196,4 +204,15 @@ body {
             display: none;
         }
     }
+}
+
+#congratulations {
+    position: absolute;
+    width: 100%;
+    color: @font-color-main;
+    font-style: italic;
+    text-align: center;
+    text-shadow: 0px 0px 5px @font-color-main, 0px 0px 2px @shadow;
+    opacity: 0.9;
+    z-index: @z-index-congrat;
 }

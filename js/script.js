@@ -17,6 +17,9 @@
     this.audioElem   = {};
     this.toggleElem  = {};
 
+    this.streetWidth = 0;
+    this.coupleWidth = 0;
+
     /*
      * Preload counters
      */
@@ -40,6 +43,11 @@
 
         this.toggleElem  = document.getElementById( "tooglePlay" );
 
+        // Saving sizes
+
+        this.streetWidth = this.streetElem.offsetWidth;
+        this.coupleWidth = this.coupleElem.offsetWidth;
+
 
         // Listeners of the preload
 
@@ -47,11 +55,13 @@
         this.coupleElem.addEventListener( 'load', this.notifyPreloaded.bind( this ), false );
 
         this.audioElem.addEventListener( 'canplaythrough', this.notifyPreloaded.bind( this ), false );
-        this.audioElem.addEventListener( 'ended', this.replayAudio.bind( this) , false );
+        this.audioElem.addEventListener( 'ended', this.replayAudio.bind( this ), false );
 
-        this.toggleElem.addEventListener( 'click', this.toggleAudio.bind( this) , false );
+        this.toggleElem.addEventListener( 'click', this.toggleAudio.bind( this ), false );
 
-        document.addEventListener( 'preloaded', this.run.bind( this ) );
+        document.addEventListener( 'preloaded', this.run.bind( this ), false );
+
+        document.addEventListener( 'mousemove', this.animate.bind( this ), false );
     };
 
 
@@ -92,13 +102,23 @@
     };
 
     /**
+     * Animate background on mouse move.
+     */
+    this.animate = function ( event ) {
+        // Use event.pageX / event.pageY here
+        var moveX = ( document.body.offsetWidth / 2  - event.pageX );
+        this.streetElem.style.marginLeft = Math.round( -this.streetWidth / 2 - moveX / 50 ) + 'px';
+        this.coupleElem.style.marginLeft = Math.round( -this.coupleWidth / 2 + moveX / 100 ) + 'px';
+    };
+
+    /**
      * Run the scene.
      */
     this.run = function ( event ) {
 
         if ( this.isPreloaded() ) {
 
-            this.standbyElem.remove();
+            this.standbyElem.style.display = "none";
             this.toggleAudio();
         }
 
