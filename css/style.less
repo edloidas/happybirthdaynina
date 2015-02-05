@@ -13,24 +13,25 @@
 @shadow: black; // #000000
 
 @font-color-main: whiteSmoke; // #F5F5F5
-@font-color-bkp: #111;
+@font-color-bkp:  #111;
 @font-shadow-bkp: 0px 1px 0px rgba( 204, 153, 102, 1.0 );
+
 @font-family-main: "Open Sans", Tahoma, Geneva, sans-serif;
 @font-size: 24pt;
 
-@container-width: 1920px;
-@container-height: 1200px;
+@container-width:   1920px;
+@container-height:  1200px;
 
-@street-img-width: 2016px;  // @container-width * 1.05
+@street-img-width:  2016px;  // @container-width * 1.05
 @street-img-height: 1260px; // @container-height * 1.05
 
-@couple-img-width: 600px;
+@couple-img-width:  600px;
 @couple-img-height: 900px;
 
-@z-index-street: 1;
-@z-index-couple: @z-index-street + 1;
+@z-index-street:  1;
+@z-index-couple:  @z-index-street + 1;
 @z-index-congrat: @z-index-couple + 1;
-@z-index-play: @z-index-congrat + 1;
+@z-index-play:    @z-index-congrat + 1;
 @z-index-standby: @z-index-play + 1;
 
 .noselect() {
@@ -82,6 +83,7 @@ html, body, #pleaseStandBy {
     position: absolute;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 body {
@@ -215,4 +217,5 @@ body {
     text-shadow: 0px 0px 5px @shadow, 0px 0px 2px @shadow;
     opacity: 0.9;
     z-index: @z-index-congrat;
+    cursor: default;
 }
