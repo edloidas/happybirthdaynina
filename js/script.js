@@ -50,27 +50,29 @@
 
 
         // Listeners of the preload
+        document.addEventListener( 'preloaded', this.run.bind( this ), false );
 
-        this.streetElem.addEventListener( 'load', this.notifyPreloaded.bind( this ), false );
-        this.coupleElem.addEventListener( 'load', this.notifyPreloaded.bind( this ), false );
+        document.addEventListener( 'mousemove', this.animate.bind( this ), false );
 
-        this.audioElem.addEventListener( 'canplaythrough', this.notifyPreloaded.bind( this ), false );
+
+        this.streetElem.addEventListener( 'load', this.notifyPreloaded.bind( this, "img street" ), false );
+        this.coupleElem.addEventListener( 'load', this.notifyPreloaded.bind( this, "img couple" ), false );
+
+        this.audioElem.addEventListener( 'canplaythrough', this.notifyPreloaded.bind( this, "audio" ), false );
         this.audioElem.addEventListener( 'ended', this.replayAudio.bind( this ), false );
 
         this.toggleElem.addEventListener( 'click', this.toggleAudio.bind( this ), false );
 
-        document.addEventListener( 'preloaded', this.run.bind( this ), false );
-
-        document.addEventListener( 'mousemove', this.animate.bind( this ), false );
+        this.audioElem.load();
     };
 
 
     /**
      * Notify element preload is complete and trigger event.
      */
-    this.notifyPreloaded = function () {
+    this.notifyPreloaded = function ( name ) {
         this.preloaded++;
-        document.dispatchEvent( new CustomEvent( 'preloaded' ) );
+        document.dispatchEvent( new CustomEvent( 'preloaded', { 'detail': name } ) );
     };
 
     /**
@@ -94,10 +96,10 @@
     this.toggleAudio = function () {
         if ( this.audioElem.paused ) {
             this.audioElem.play();
-            this.toggleElem.setAttribute("class", "");
+            this.toggleElem.setAttribute( "class", "" );
         } else {
             this.audioElem.pause();
-            this.toggleElem.setAttribute("class", "paused");
+            this.toggleElem.setAttribute( "class", "paused" );
         }
     };
 
